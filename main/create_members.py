@@ -7,6 +7,12 @@ class WrongFileExtensionError(Exception):
     pass
 
 
+def handle_uploaded_file(file, filename):
+    with open(BASE_DIR / f'data/members/{filename}', 'wb+') as destination:
+        for chunk in file.chunks():
+            destination.write(chunk)
+
+
 def load_csv(filename: str):
     return pd.read_csv(BASE_DIR / f'data/members/{filename}', delimiter=';')
 
@@ -72,7 +78,7 @@ def create_members(filename: str):
             member = db_members.insert_one(obj).inserted_id
             members.append(member)
             new += 1
-    return {"members": members, "new": new, 'changed': changed, 'error': error}
+    return {"members": members, "new": new, 'changed': changed, 'errors': error}
 
 
 def create_member(data: dict):
