@@ -1,7 +1,7 @@
 
 from bson import ObjectId
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse, HttpRequest
+from django.shortcuts import render, redirect
 from devrelhack.settings import db
 from main.create_members import create_member
 
@@ -17,7 +17,7 @@ def table_view(request: HttpRequest):
     for attribute, meta in attributes.items():
         if meta.get('filter', 0) == 1:
             values = {member.get(attribute, '') for member in members}
-            meta['select'] = values
+            meta['select'] = sorted(list(values))
             attributes[attribute] = meta
 
     is_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest'
@@ -43,8 +43,6 @@ def table_view(request: HttpRequest):
 
 def create_member_view(request):
     attributes = db.get_collection("attributes").find_one().get("attributes")
-    cursor = db.get_collection("members").find()
-    members = list(cursor)
     if request.method == "POST":
         data = {}
         for field_name in attributes:
@@ -52,7 +50,7 @@ def create_member_view(request):
 
         res = create_member(data)
         if res:
-            return HttpResponse("Данные успешно добавлены!")
+            return redirect('table-view')
         else:
             return render(request, "add_member.html",
                           {"fields": attributes, 'error': 'Используются уникальные поля разных пользователей'})
