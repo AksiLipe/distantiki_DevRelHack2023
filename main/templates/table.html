@@ -1,67 +1,68 @@
 {% extends "base.html" %}
 {% load get %}
 {% block content %}
-<h1>Table Example</h1>
-<table>
-    <thead>
-    <tr>
-        {% for header, meta in headers.items %}
-        <th>
-            {% if meta.filter == 1 %}
-            <div class="dropdown" id="{{header}}">
-                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                    {{header}}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="filterDropdown" >
-                    {% for value in meta.select %}
-                    <!-- Filter options go here -->
-                    <div class="dropdown-item" onclick="updateTable()">
-                        <input type="checkbox" id="{{value}}" class="filter-checkbox" value="{{value}}" checked>
-                        <label for="{{value}}">{{ value }}</label>
+<div class="my-5 mx-5">
+    <table>
+        <thead>
+        <tr>
+            {% for header, meta in headers.items %}
+            <th>
+                {% if meta.filter == 1 %}
+                <div class="dropdown" id="{{header}}">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        {{header}}
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                        {% for value in meta.select %}
+                        <!-- Filter options go here -->
+                        <div class="dropdown-item" onclick="updateTable()">
+                            <input type="checkbox" id="{{value}}" class="filter-checkbox" value="{{value}}" checked>
+                            <label for="{{value}}">{{ value }}</label>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
-            </div>
 
-            {% else %}
-            {{ header }}
-            {% endif %}
-        </th>
+                {% else %}
+                {{ header }}
+                {% endif %}
+            </th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody id="table-container">
+        {% for item in data %}
+        <tr>
+            {% for header, meta in headers.items %}
+            <td>{{item|get:header}}</td>
+            {% endfor %}
+        </tr>
         {% endfor %}
-    </tr>
-    </thead>
-    <tbody id="table-container">
-    {% for item in data %}
-    <tr>
-        {% for header, meta in headers.items %}
-        <td>{{item|get:header}}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
 <script>
-function updateTable() {
-    var filterValues = {};
+    function updateTable() {
+        var filterValues = {};
 
-    // Для каждого выпадающего списка с классом 'filter-checkbox'
-    $('.filter-checkbox').each(function() {
-        var dropdownId = $(this).closest('.dropdown').attr('id');
+        // Для каждого выпадающего списка с классом 'filter-checkbox'
+        $('.filter-checkbox').each(function () {
+            var dropdownId = $(this).closest('.dropdown').attr('id');
 
-        // Если ключ (dropdownId) отсутствует в словаре, создаем массив
-        if (!filterValues[dropdownId]) {
-            filterValues[dropdownId] = '';
-        }
+            // Если ключ (dropdownId) отсутствует в словаре, создаем массив
+            if (!filterValues[dropdownId]) {
+                filterValues[dropdownId] = '';
+            }
 
-        // Если чекбокс отмечен, добавляем его значение в массив
-        if ($(this).is(':checked')) {
-            filterValues[dropdownId] += ';' + this.value;
-        }
-    });
+            // Если чекбокс отмечен, добавляем его значение в массив
+            if ($(this).is(':checked')) {
+                filterValues[dropdownId] += ';' + this.value;
+            }
+        });
 
-    // filterValues теперь содержит массив значений отмеченных чекбоксов
-    console.log(filterValues);
+        // filterValues теперь содержит массив значений отмеченных чекбоксов
+        console.log(filterValues);
         // Add more filter values as needed
 
         $.ajax({

@@ -24,8 +24,6 @@
     font-style: normal;
     font-variant: normal;
 }
-
-
 /* Оформление основной таблицы */
 table {
   border-collapse: collapse;
@@ -56,11 +54,5 @@ tr:hover {
   transition: background-color 0.3s ease;
 }
 .form_add_member {
-    text-align: center;
-}
-
-.footer {
-    background-color: #0c6cd5; /* Цвет фона */
-    padding: 20px;
     text-align: center;
 }
