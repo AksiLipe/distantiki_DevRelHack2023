@@ -1,4 +1,6 @@
-from django.http import HttpResponse, HttpRequest, JsonResponse
+
+from bson import ObjectId
+from django.http import HttpResponse
 from django.shortcuts import render
 from devrelhack.settings import db
 from main.create_members import create_member
@@ -36,7 +38,6 @@ def table_view(request: HttpRequest):
                 table_html += f'<td>{item.get(header, "")}</td>\n'
             table_html += '</tr>'
         return JsonResponse({'table_html': table_html})
-
     return render(request, "table.html", {"data": members, "headers": attributes})
 
 

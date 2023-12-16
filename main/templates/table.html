@@ -34,7 +34,7 @@
     <tbody id="table-container">
     {% for item in data %}
     <tr>
-        {% for header in headers %}
+        {% for header, meta in headers.items %}
         <td>{{item|get:header}}</td>
         {% endfor %}
     </tr>
