@@ -33,18 +33,17 @@
             <h2 class="form_add_member mt-4 mb-4 opacity-75">Добавить файл с участниками</h2>
             <hr>
             <div class="row justify-content-center">
-                <div class="">
-                    <form method="post" enctype="multipart/form-data" class="mb-3">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="file" class="form-label">Выберите файл:</label>
-                            <input type="file" name="file" class="form-control" id="file">
-                        </div>
-                        <button type="submit" class="btn btn-info mt-2 mb-2">Добавить</button>
-                    </form>
-                </div>
+                <form method="post" enctype="multipart/form-data" class="mb-3">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Выберите файл:</label>
+                        <input type="file" name="file" class="form-control" id="file">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Загрузить</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}

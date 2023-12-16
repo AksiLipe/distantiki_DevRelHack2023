@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load get %}
+{% load static %}
+
+{% block content %}
+<h1>Analytics</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    <div>
+        <div>
+            <label>Поле фильтрации: </label>
+            <select id="firstDropdown" name="firstDropdown">
+                {% for field in fields %}
+                <option id="{{ field }}" value="{{ field }}">{{ field }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Фильтры для выбранного поля
+            </button>
+            <div class="dropdown-menu" id="secondDropdown">
+
+            </div>
+        </div>
+
+        <div>
+            <label>Поле деления диаграммы</label>
+            <!-- Третий выпадающий список -->
+            <select id="thirdDropdown" name="thirdDropdown">
+                {% for field in fields %}
+                <option value="{{ field }}">{{ field }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-secondary">Показать диаграмму</button>
+</form>
+{% if filename %}
+<img src="{% static filename %}" alt="Здесь должна быть диаграмма">
+{% endif %}
+<script>
+
+    $('#firstDropdown').on('change', function() {
+
+        // Получение выбранного значения
+        var selectedValue = $(this).val();
+
+        // Очистка и обновление второго списка
+        $('#secondDropdown').empty();
+
+        var decodedString = '{{fields}}'.replace(/&#x27;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+        var fields = JSON.parse(decodedString);
+
+        var values = fields[selectedValue];
+        values.forEach((element) => {
+        $('#secondDropdown').append('<div class="dropdown-item">' +
+                '<input type="checkbox" id="' + element + '" class="filter-checkbox" value="' + element +
+                '" checked name="filters"><label for="' + element + '">' + element + '</label></div>');
+        });
+
+        $('#thirdDropdown').empty();
+        for (var element in fields) {
+            if (element != selectedValue) {
+                $('#thirdDropdown').append('<option value="' + element + '">' + element + '</option>');
+            }
+        };
+    });
+
+    $('#firstDropdown').change();
+</script>
+{% endblock %}
