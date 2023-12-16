@@ -13,9 +13,31 @@
 {% if errors %}
 <p>Ошибочных обновлений: {{ errors }}</p>
 {% endif %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="file">
-    <button type="submit">Загрузить</button>
-</form>
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <div class="mx-auto bg-opacity-10 border border-dark rounded-5 rounded border-opacity-75 px-4"
+         style="width: 700px;">
+        <div class="container my-5">
+            <h2 class="form_add_member mt-4 mb-4 opacity-75">Добавить файл с участниками</h2>
+            <hr>
+            <form action="" method="post" class="mb-4">
+                {% csrf_token %}
+                <div class="row justify-content-center">
+                    <div class="">
+                        <form method="post" enctype="multipart/form-data" class="mb-3">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="file" class="form-label">Выберите файл:</label>
+                                <input type="file" name="file" class="form-control" id="file">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Загрузить</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
