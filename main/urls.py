@@ -1,8 +1,8 @@
 from django.urls import path
-
-from main.views import index, table_view
+from .views import table_view
+from main.views import index
 
 urlpatterns = [
-    path('table/', table_view),
     path('',  index),
+    path('table/', table_view, name='table-view'),
 ]
