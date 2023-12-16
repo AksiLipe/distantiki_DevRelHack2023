@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Таблица</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load get %}
+{% block content %}
 <h1>Table Example</h1>
-<table border="1">
+<table>
     <thead>
     <tr>
         {% for header in headers %}
@@ -18,12 +14,10 @@
     {% for item in data %}
     <tr>
         {% for header in headers %}
-        {{header}}
-        <td>{{ item.get(header) }}</td>
+        <td>{{item|get:header}}</td>
         {% endfor %}
     </tr>
     {% endfor %}
     </tbody>
 </table>
-</body>
-</html>
+{% endblock %}
