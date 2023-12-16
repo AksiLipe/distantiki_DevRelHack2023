@@ -1,18 +1,28 @@
 {% extends "base.html" %}
 {% load get %}
 {% block content %}
-{% if error %}
-<p>{{ error }}</p>
-{% endif %}
-{% if new %}
-<p>Новых участников добавлено: {{ new }}</p>
-{% endif %}
-{% if changed %}
-<p>Участников обновлено: {{ changed }}</p>
-{% endif %}
-{% if errors %}
-<p>Ошибочных обновлений: {{ errors }}</p>
-{% endif %}
+<div class="mx-auto mt-3" style="width: 700px; text-align: center;">
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
+    {% if new %}
+    <div class="alert alert-success" role="alert">
+        Новых участников добавлено: {{ new }}
+    </div>
+    {% endif %}
+    {% if changed %}
+    <div class="alert alert-success" role="alert">
+        Участников обновлено: {{ changed }}
+    </div>
+    {% endif %}
+    {% if errors %}
+    <div class="alert alert-warning" role="alert">
+        Ошибочных обновлений: {{ errors }}
+    </div>
+    {% endif %}
+</div>
 <div class="container">
     <br>
     <br>
@@ -35,7 +45,7 @@
                         </form>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Загрузить</button>
+                <button type="submit" class="btn btn-info mt-2 mb-2">Добавить</button>
             </form>
         </div>
     </div>

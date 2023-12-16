@@ -76,7 +76,7 @@ def create_member_view(request):
 
 
 def import_members(request):
-    return render(request, "import_members.html")
+    return render(request, "import_members.html", {'new': 2, 'changed': 1, 'errors': 3, 'error': 'Неправильное расширение файла, поддерживаются только (.csv/.xls/.xlsx)'})
 
 def mailing(request):
     return render(request, "mailing.html")
