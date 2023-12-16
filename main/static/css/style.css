@@ -31,3 +31,33 @@
     text-align: center;
 
 }
+/* Оформление основной таблицы */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Стили для заголовка таблицы */
+th {
+  background-color: #f2f2f2;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Чередование цветов строк */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Оформление ячеек таблицы */
+td, th {
+  border: 1px solid #000000;
+  padding: 8px;
+}
+
+/* При наведении добавим небольшую анимацию */
+tr:hover {
+  background-color: #e6e6e6;
+  transition: background-color 0.3s ease;
+}
