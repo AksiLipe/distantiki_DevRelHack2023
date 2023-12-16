@@ -1,0 +1,33 @@
+.navbar {
+    font-weight: initial;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    font-variant: normal;
+    background: #cccccc;
+}
+.collapse {
+    margin-left: 20px;
+    margin-right: 40px;
+    margin-top: 5px;
+}
+
+.container-fluid {
+    margin-left: 30px;
+    margin-right: 40px;
+    margin-top: 5px;
+}
+
+.btn {
+    font-weight: initial;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    font-variant: normal;
+}
+
+.dropdown-menu {
+    font-weight: initial;
+    text-align: center;
+
+}
