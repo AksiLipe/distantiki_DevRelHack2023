@@ -5,5 +5,6 @@ from main.views import index
 urlpatterns = [
     path('',  index),
     path('table/', table_view, name='table-view'),
-    path('add_member/', create_member_view, name='add-member')
+    path('add_member/', create_member_view, name='add-member'),
+    path('import_member/', create_member_view, name='import-member'),
 ]
