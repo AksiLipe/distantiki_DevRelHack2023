@@ -93,11 +93,8 @@ def create_member(data: dict):
         return changing_document.get('_id')
     elif changing_documents and not are_equal(changing_documents):
         # Изменяются разные объекты => не меняем.
-        pass
+        return False
     else:
         # Не изменяется ни один объект => создаем новый
         member = db_members.insert_one(obj).inserted_id
         return member
-
-
-create_members('test.xlsx')
