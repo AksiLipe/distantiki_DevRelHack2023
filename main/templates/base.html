@@ -10,53 +10,52 @@
 </head>
 
 <body>
-
-<header class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand text-dark" href="#">DevRelCRM</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse text-light" id="navbarTogglerDemo02">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" aria-current="page" href="#">Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Таблица</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Рассылка</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="#">Изменение профиля</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <button class="btn nav-link btn-light dropdown-toggle text-dark" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        Добавление участника(-ов)
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <!-- Button trigger modal -->
-                        <a type="button" class="btn btn-light bg-light ms-5 me-5" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal"
-                                data-bs-whatever="@getbootstrap" href="#">Добавить участника
-                        </a>
-                    </ul>
-                </li>
-            </ul>
+<div>
+    <header class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand text-dark" href="#">DevRelCRM</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse text-light" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" aria-current="page" href="#">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#">Таблица</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#">Рассылка</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#">Изменение профиля</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <button class="btn nav-link btn-light dropdown-toggle text-dark" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Добавление участника(-ов)
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <!-- Button trigger modal -->
+                            <a type="button" class="btn btn-light bg-light ms-5 me-5" data-bs-toggle="modal"
+                               data-bs-target="#exampleModal"
+                               data-bs-whatever="@getbootstrap" href="#">Добавить участника
+                            </a>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-
-</header>
-
-<main class="main text-dark text-light">
+    </header>
+</div>
+<main class="main text-dark text-light " style="height: 100vh">
     {% block content %}
     {% endblock %}
 </main>
 <br>
-<footer class="bg-light text-dark text-center pt-5 pb-5">
+<footer class=" text-dark text-center pt-5 pb-5">
     <div class="container">
         <p>&copy; 2023 Ваша Компания</p>
     </div>
