@@ -74,11 +74,10 @@ WSGI_APPLICATION = 'devrelhack.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# import pymongo
-#
-# client = pymongo.MongoClient("mongodb://localhost:27017/")
-# db = client["devrelhack"]
-db = None
+import pymongo
+
+client = pymongo.MongoClient("mongodb://localhost:27017/")
+db = client["devrelhack"]
 
 
 # Password validation

@@ -22,22 +22,18 @@
         <div class="container my-5">
             <h2 class="form_add_member mt-4 mb-4 opacity-75">Добавить файл с участниками</h2>
             <hr>
-            <form action="" method="post" class="mb-4">
-                {% csrf_token %}
-                <div class="row justify-content-center">
-                    <div class="">
-                        <form method="post" enctype="multipart/form-data" class="mb-3">
-                            {% csrf_token %}
-                            <div class="mb-3">
-                                <label for="file" class="form-label">Выберите файл:</label>
-                                <input type="file" name="file" class="form-control" id="file">
-                            </div>
-                        </form>
+            <div class="row justify-content-center">
+                <form method="post" enctype="multipart/form-data" class="mb-3">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Выберите файл:</label>
+                        <input type="file" name="file" class="form-control" id="file">
                     </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Загрузить</button>
-            </form>
+                    <button type="submit" class="btn btn-primary">Загрузить</button>
+                </form>
+            </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}
