@@ -4,5 +4,5 @@ register = template.Library()
 
 
 @register.filter(name='get')
-def cut(dictionary, key):
+def get(dictionary, key):
     return dictionary.get(key, '')
