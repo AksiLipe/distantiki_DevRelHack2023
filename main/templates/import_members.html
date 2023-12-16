@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 {% load get %}
 {% block content %}
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+{% if new %}
+<p>Новых участников добавлено: {{ new }}</p>
+{% endif %}
+{% if changed %}
+<p>Участников обновлено: {{ changed }}</p>
+{% endif %}
+{% if errors %}
+<p>Ошибочных обновлений: {{ errors }}</p>
+{% endif %}
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form }}
+    <input type="file" name="file">
     <button type="submit">Загрузить</button>
 </form>
 {% endblock %}
