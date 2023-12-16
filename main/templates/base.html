@@ -11,77 +11,56 @@
 
 <body>
 
-<header class="navbar navbar-expand-lg bg-body-dark">
+<header class="navbar navbar-expand-lg bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">DevRelCRM</a>
+        <a class="navbar-brand text-white" href="#">DevRelCRM</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
                 aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <div class="collapse navbar-collapse text-light" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                    <a class="nav-link text-white" aria-current="page" href="#">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Таблица</a>
+                    <a class="nav-link text-white" href="#">Таблица</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Рассылка</a>
+                    <a class="nav-link text-white" href="#">Рассылка</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Изменение профиля</a>
+                    <a class="nav-link text-white" href="#">Изменение профиля</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <button class="btn nav-link btn-light dropdown-toggle" data-bs-toggle="dropdown"
+                    <button class="btn nav-link btn-light dropdown-toggle text-white" data-bs-toggle="dropdown"
                             aria-expanded="false">
                         Добавление участника(-ов)
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-light">
+                    <ul class="dropdown-menu dropdown-menu-dark">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        <a type="button" class="btn btn-light bg-light ms-5 me-5" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal"
-                                data-bs-whatever="@getbootstrap">Open modal for @getbootstrap
-                        </button>
+                                data-bs-whatever="@getbootstrap" href="#">Добавить участника
+                        </a>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-    <!-- Modal add members-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Send message</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </header>
 
-<main class="main">
+<main class="main bg-dark text-light">
     {% block content %}
     {% endblock %}
 </main>
+
+<footer class="bg-dark text-white text-center pt-5 pb-5">
+    <div class="container">
+        <p>&copy; 2023 Ваша Компания</p>
+    </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
