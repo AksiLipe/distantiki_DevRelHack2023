@@ -37,7 +37,9 @@ def create_members(filename: str):
         if key not in attributes.keys():
             print('Неправильный атрибут')
             return
-
+    changed = 0
+    new = 0
+    error = 0
     for line in df.values:
         changing_documents = []
         found_key = None
@@ -47,7 +49,7 @@ def create_members(filename: str):
             key, value = keys[i], line[i]
 
             # Смотрим, есть ли совпадения среди уникальных атрибутов
-            if attributes.get(key).get('unique') == 1:
+            if attributes.get(key).get('unique') == 1 and value:
                 found = db_members.find_one(filter={key: value})
                 if found:
                     # Если есть => сохраняем эти объекты
@@ -61,14 +63,16 @@ def create_members(filename: str):
             print('changed')
             db_members.update_one(filter={found_key: changing_document[found_key]}, update={'$set': obj})
             members.append(changing_document.get('_id'))
+            changed += 1
         elif changing_documents and not are_equal(changing_documents):
             # Изменяются разные объекты => не меняем.
-            pass
+            error += 1
         else:
             # Не изменяется ни один объект => создаем новый
             member = db_members.insert_one(obj).inserted_id
             members.append(member)
-    return members
+            new += 1
+    return {"members": members, "new": new, 'changed': changed, 'error': error}
 
 
 def create_member(data: dict):
@@ -78,7 +82,7 @@ def create_member(data: dict):
     obj = {}
     found_key = None
     for key, value in data.items():
-        if attributes.get(key).get('unique') == 1:
+        if attributes.get(key).get('unique') == 1 and value:
             found = db_members.find_one(filter={key: value})
             if found:
                 # Если есть => сохраняем эти объекты
