@@ -9,6 +9,7 @@
     <div class="mx-auto bg-opacity-10 border border-light rounded-5 rounded " style="width: 700px;">
         <div class="me-5 ms-5">
             <h2 class="form_add_member mt-4 mb-4">Добавить участника</h2>
+            <hr>
             <form action="" method="post" class="mb-4">
                 {% csrf_token %}
                 <p class="text-danger">{{ error }}</p>
@@ -19,7 +20,7 @@
                            class="form-control">
                 </div>
                 {% endfor %}
-                <button type="submit" class="btn btn-primary">Отправить</button>
+                <button type="submit" class="btn btn-primary mt-3">Отправить</button>
             </form>
         </div>
     </div>
