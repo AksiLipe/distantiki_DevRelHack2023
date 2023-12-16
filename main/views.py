@@ -55,8 +55,7 @@ def create_member_view(request):
             return render(request, "add_member.html",
                           {"fields": attributes, 'error': 'Используются уникальные поля разных пользователей'})
     else:
-        return render(request, "add_member.html", {"fields": attributes})
+        return render(request, "add_member.html", context={"fields": attributes})
 
-
-def import_table_view(request):
-    pass
+def import_members(request):
+    return render(request, "import_members.html")
