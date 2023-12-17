@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import table_view, create_member_view, import_members, index, get_analytics, mailing
+from .views import table_view, create_member_view, import_members, index, get_analytics, mailing, download_data
 
 urlpatterns = [
     path('', index),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('import_members/', import_members, name='import-members'),
     path('analytics/', get_analytics, name='analytics'),
     path('malling/', mailing, name='mailing'),
+    path('table/download/', download_data, name='download_data'),
 ]

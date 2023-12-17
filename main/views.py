@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from django.http import HttpResponse, JsonResponse, HttpRequest
 from django.shortcuts import render, redirect
@@ -31,7 +32,7 @@ def table_view(request: HttpRequest):
                 values = values[1:].split(';')
                 filtered_members = []
                 for m in members:
-                    if m.get(attribute, '') in values:
+                    if get_item(m, attribute) in values:
                         filtered_members.append(m)
                 members = filtered_members
         table_html = ''
@@ -93,7 +94,6 @@ def get_analytics(request):
         field = request.POST.get('firstDropdown')
         filters = request.POST.getlist('filters')
         division_field = request.POST.get('thirdDropdown')
-        print(field, filters, division_field)
         filtered_members = list(db_members.find({field: {'$in': filters}}))
         categories = {}
         for member in filtered_members:
@@ -111,3 +111,26 @@ def get_analytics(request):
 def mailing(request):
     print(request.method)
     return render(request, "mailing.html")
+
+
+def download_data(request):
+    if request.method == 'POST':
+        try:
+            attributes = list(db.get_collection("attributes").find_one().get("attributes").keys())
+            data = request.POST.get('data')
+            data = json.loads(data)
+            csv_filename = "temp_data.csv"
+            with open(csv_filename, "w") as csv_file:
+                csv_file.write(';'.join(attributes) + '\n')
+                for line in data:
+                    csv_file.write(';'.join(line) + '\n')
+
+            # Открываем и отправляем файл в ответе
+            with open(csv_filename, 'rb') as csv_file:
+                response = HttpResponse(csv_file.read(), content_type='text/csv')
+                response['Content-Disposition'] = 'attachment; filename="data.csv"'
+                return response
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
