@@ -2,46 +2,63 @@
 {% load get %}
 {% block content %}
 <div class="my-5 mx-5">
-    <table>
-        <thead>
-        <tr>
-            {% for header, meta in headers.items %}
-            <th>
-                {% if meta.filter == 1 %}
-                <div class="dropdown" id="{{header}}">
-                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        {{header}}
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="filterDropdown">
-                        {% for value in meta.select %}
-                        <!-- Filter options go here -->
-                        <div class="dropdown-item" onclick="updateTable()">
-                            <input type="checkbox" id="{{value}}" class="filter-checkbox" value="{{value}}" checked>
-                            <label for="{{value}}">{{ value }}</label>
+    <table class="tabledata">
+        <div>
+            <thead>
+            <tr>
+                {% for header, meta in headers.items %}
+                <th>
+                    {% if meta.filter == 1 %}
+                    <div class="dropdown" id="{{header}}">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            {{header}}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                            {% for value in meta.select %}
+                            <!-- Filter options go here -->
+                            <div class="dropdown-item" onclick="updateTable()">
+                                <input type="checkbox" id="{{value}}" class="filter-checkbox" value="{{value}}" checked>
+                                <label for="{{value}}">{{ value }}</label>
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
-                </div>
 
-                {% else %}
-                {{ header }}
-                {% endif %}
-            </th>
-            {% endfor %}
-        </tr>
-        </thead>
-        <tbody id="table-container">
-        {% for item in data %}
-        <tr>
-            {% for header, meta in headers.items %}
-            <td>{{item|get:header}}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-        </tbody>
+                    {% else %}
+                    {{ header }}
+                    {% endif %}
+                </th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <div class="mx-auto bg-opacity-10 border border-dark rounded-5 rounded border-opacity-75">
+                <tbody class="mx-auto bg-opacity-10 border border-dark rounded-5 rounded border-opacity-75"
+                       id="table-container">
+                {% for item in data %}
+                <tr data-href="{% url 'table-view' %}">
+                    {% for header, meta in headers.items %}
+                    <td>{{ item|get:header }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </div>
+        </div>
     </table>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tableRows = document.querySelectorAll('#table-container tr[data-href]');
+
+        tableRows.forEach(row => {
+            row.addEventListener('click', () => {
+                const url = row.getAttribute('data-href');
+                window.location.href = url;
+            });
+        });
+    });
+</script>
 <script>
     function updateTable() {
         var filterValues = {};
