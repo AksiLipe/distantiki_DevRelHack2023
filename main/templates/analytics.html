@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="thirdDropdown">Поле деления диаграммы:</label>
+                        <label for="thirdDropdown">Поле секторов диаграммы:</label>
                         <select class="form-control" id="thirdDropdown" name="thirdDropdown">
                             {% for field in fields %}
                             <option value="{{ field }}">{{ field }}</option>
@@ -71,6 +71,7 @@
         var decodedString = '{{fields}}'.replace(/&#x27;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
         var fields = JSON.parse(decodedString);
 
+        console.log(fields);
         var values = fields[selectedValue];
         values.forEach((element) => {
             $('#secondDropdown').append('<div class="dropdown-item">' +
@@ -89,4 +90,14 @@
 
     $('#firstDropdown').change();
 </script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 {% endblock %}

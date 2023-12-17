@@ -1,3 +1,5 @@
+import random
+
 import pandas as pd
 
 from devrelhack.settings import BASE_DIR, db
@@ -108,3 +110,18 @@ def create_member(data: dict):
         # Не изменяется ни один объект => создаем новый
         member = db_members.insert_one(obj).inserted_id
         return member
+
+
+def fill_table(n):
+    db.get_collection('members').delete_many({"Имя": "n-ое имя"})
+    attributes = db.get_collection('attributes').find_one().get('attributes')
+    csv_filename = "temp_data.csv"
+    with open(csv_filename, "w") as csv_file:
+        csv_file.write(";".join(list(attributes)) + '\n')
+        for i in range(n):
+            line = f'test{i}@gmail.com;7{i}765456;n-ое имя;n-ая фамилия;tg{i}test;{random.choice(["1-3 года", "<1 года", ">3 лет"])};{random.choice(["frontend", "backend", "backend", "DevRel"])};{random.choice(["python", "javascript"])}'
+            csv_file.write(line + '\n')
+
+
+if __name__ == '__main__':
+    fill_table(300)

@@ -46,54 +46,80 @@
             </div>
         </div>
     </table>
+    <br>
+    <button id="downloadButton" class="btn btn-primary">Выгрузить данные</button>
+
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const tableRows = document.querySelectorAll('#table-container tr[data-href]');
+<script>document.getElementById('downloadButton').addEventListener('click', function() {
+    // Получение данных из таблицы
+    var table = document.getElementById('dataTable');
+    var rows = table.querySelectorAll('tbody tr');
+    var data = [];
 
-        tableRows.forEach(row => {
-            row.addEventListener('click', () => {
-                const url = row.getAttribute('data-href');
-                window.location.href = url;
-            });
+    rows.forEach(function(row) {
+        var rowData = [];
+        row.querySelectorAll('td').forEach(function(cell) {
+            rowData.push(cell.textContent);
         });
+        data.push(rowData);
     });
-</script>
-<script>
-    function updateTable() {
-        var filterValues = {};
+    var params = "data=" + JSON.stringify(data);    console.log(params);
+    // Создание запроса к серверу
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'download/', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken')); // Добавляем CSRF токен
 
-        // Для каждого выпадающего списка с классом 'filter-checkbox'
-        $('.filter-checkbox').each(function () {
-            var dropdownId = $(this).closest('.dropdown').attr('id');
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Создание временной ссылки для скачивания файла
+            var a = document.createElement('a');
+            a.href = window.URL.createObjectURL(new Blob([xhr.response], { type: 'text/csv' }));
+            a.download = 'data.csv';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    };
 
-            // Если ключ (dropdownId) отсутствует в словаре, создаем массив
-            if (!filterValues[dropdownId]) {
-                filterValues[dropdownId] = '';
-            }
+    // Отправка данных на сервер
+    xhr.send(params);
+});
+function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+}
+function updateTable() {
+    var filterValues = {};
 
-            // Если чекбокс отмечен, добавляем его значение в массив
-            if ($(this).is(':checked')) {
-                filterValues[dropdownId] += ';' + this.value;
-            }
-        });
+    $('.filter-checkbox').each(function () {
+        var dropdownId = $(this).closest('.dropdown').attr('id');
 
-        // filterValues теперь содержит массив значений отмеченных чекбоксов
-        console.log(filterValues);
-        // Add more filter values as needed
+        if (!filterValues[dropdownId]) {
+            filterValues[dropdownId] = '';
+        }
 
-        $.ajax({
-            type: "GET",
-            url: "{% url 'table-view' %}",
-            data: filterValues,
-            success: function (data) {
-                console.log(data);
-                $("#table-container").html(data.table_html);
-            },
-            error: function (xhr, status, error) {
-                console.error("Error updating table: " + error);
-            }
-        });
-    }
+        if ($(this).is(':checked')) {
+            filterValues[dropdownId] += ';' + this.value;
+        }
+    });
+
+    console.log(filterValues);
+
+    $.ajax({
+        type: "GET",
+        url: "{% url 'table-view' %}",
+        data: filterValues,
+        success: function (data) {
+            console.log(data);
+            $("#table-container").html(data.table_html);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error updating table: " + error);
+        }
+    });
+}
 </script>
 {% endblock %}
