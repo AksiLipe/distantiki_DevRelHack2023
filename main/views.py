@@ -88,6 +88,7 @@ def get_analytics(request):
             values = {get_item(member, k) for member in members}
             values = sorted(list(values))
             fields[k] = values
+
     if request.method == 'POST':
         field = request.POST.get('firstDropdown')
         filters = request.POST.getlist('filters')
